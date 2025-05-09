@@ -1,0 +1,25 @@
+<div class="product-card" [routerLink]="['/products', product.id]" [class.out-of-stock]="!product.inStock">
+  <div class="product-image">
+    <img [src]="product.imageUrl" [alt]="product.name">
+    @if(!product.inStock){
+    <span class="stock-badge">Out of Stock</span>
+    }
+  </div>
+  <div class="product-content">
+    <div class="product-header">
+      <h3 class="product-name">{{ product.name }}</h3>
+      <div class="product-price">$ {{ product.price | number:'1.2-2' }}</div>
+    </div>
+    <div class="product-category">{{ product.category }}</div>
+    <div class="product-rating">
+      <span class="rating-value">{{ product.rating.toFixed(1) }}/5</span>
+    </div>
+    <p class="product-description">{{ product.description | slice:0:80 }}{{ product.description.length > 80 ? '...' : ''
+      }}</p>
+    <div class="product-actions">
+      <button class="add-to-cart-btn" [disabled]="!product.inStock" (click)="addToCart.emit(product)">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div>

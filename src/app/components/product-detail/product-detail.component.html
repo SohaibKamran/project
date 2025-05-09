@@ -1,0 +1,51 @@
+<div class="product-detail-container">
+    <button class="back-button" routerLink="/products">
+        Back
+    </button>
+
+    <div *ngIf="loading" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading product details...</p>
+    </div>
+
+    <div *ngIf="!loading && !product" class="error-message">
+        <h2>Product Not Found</h2>
+        <p>Sorry, the product you're looking for doesn't exist.</p>
+        <button class="primary-button" routerLink="/products">View All Products</button>
+    </div>
+
+    <div *ngIf="!loading && product" class="product-detail">
+        <div class="product-image-container">
+            <img [src]="product.imageUrl" [alt]="product.name" class="product-image">
+            <span *ngIf="!product.inStock" class="stock-badge">Out of Stock</span>
+        </div>
+
+        <div class="product-info">
+            <div class="product-header">
+                <h1 class="product-name">{{ product.name }}</h1>
+                <div class="product-category">{{ product.category }}</div>
+            </div>
+
+            <div class="product-price">${{ product.price | number:'1.2-2' }}</div>
+
+            <div class="product-rating">
+                <span class="rating-value">{{ product.rating.toFixed(1) }}/5</span>
+            </div>
+
+            <div class="product-availability" [class.in-stock]="product.inStock">
+                {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+            </div>
+
+            <p class="product-description">{{ product.description }}</p>
+
+            <div class="product-actions">
+                <button class="add-to-cart-btn" [disabled]="!product.inStock" (click)="addToCart()">
+                    Add to Cart
+                </button>
+                <button class="buy-now-btn" [disabled]="!product.inStock">
+                    Buy Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

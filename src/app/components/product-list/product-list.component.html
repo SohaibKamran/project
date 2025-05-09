@@ -1,0 +1,23 @@
+<div class="product-list-container">
+    <header class="product-list-header">
+        <h1>Featured Products</h1>
+        <p>Discover our selection of premium products</p>
+    </header>
+
+    @if(loading){
+    <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading products...</p>
+    </div>
+    }
+    @else{
+    <div class="product-grid">
+        @for(product of products; track $index){
+        <div class="product-grid-item">
+            <app-product-card [product]="product" (addToCart)="handleAddToCart($event)">
+            </app-product-card>
+        </div>
+        }
+    </div>
+    }
+</div>
